@@ -1,19 +1,17 @@
 <section id="body-container">
   <section id="body-left-container">
-    <h1>Calculate your route</h1>
     <form id="calculate-route" name="calculate-route" action="#" method="get">
-      <label for="from">From:</label>
-      <input type="text" id="from" name="from" required="required" placeholder="An address" size="30" />
-      <a id="from-link" href="#">Get my position</a>
-      <br />
+      <div class="search">
 
-      <label for="to">To:</label>
-      <input type="text" id="to" name="to" required="required" placeholder="Another address" size="30" />
-      <a id="to-link" href="#">Get my position</a>
-      <br />
+        <input class="search" type="text" id="from" name="from" required="required" placeholder="Start" size="35" />
+        <a id="from-link" href="#">Get my position</a>
 
-      <input type="submit" />
-      <input type="reset" />
+        <input class="search" type="text" id="to" name="to" required="required" placeholder="End" size="35" />
+        <a id="to-link" href="#">Get my position</a>
+
+      </div>
+      <input type="submit" class="button-0"/>
+      <input type="reset" class="button-0"/>
     </form>
   </section>
   <section id="body-right-container">

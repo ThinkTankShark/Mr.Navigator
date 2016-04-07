@@ -6,7 +6,7 @@ function calculateRoute(from, to) {
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         // Draw the map
-        var mapObject = new google.maps.Map(document.getElementById("map"), myOptions);
+        var mapObject = new google.maps.Map(document.getElementById("body-right-container"), myOptions);
 
         var directionsService = new google.maps.DirectionsService();
         var directionsRequest = {
