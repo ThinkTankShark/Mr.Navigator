@@ -2,6 +2,7 @@
   box-sizing: border-box;
   -moz-box-sizing:border-box;
   font-family: "Open Sans", Helvetica;
+  outline: 0;
 }
 
 html {

@@ -56,3 +56,18 @@ get '/logout' do
   session.delete(:user_id)
   redirect '/'
 end
+
+#Return another user location
+get '/users/find' do
+  if request.xhr?
+    @user = User.find_by(email: params[:to])
+    puts ""
+    puts "------------------------------"
+    puts @user.location
+    puts "------------------------------"
+    puts ""
+    return @user.location.to_json
+  else
+    p "error"
+  end
+end

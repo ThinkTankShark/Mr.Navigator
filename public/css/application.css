@@ -146,6 +146,9 @@
   border-bottom: 1px solid;
 }
 
+#button-1 {
+  margin-top: 20px;
+}
 input.search {
   background-image:url(../imgs/search2.png);
   background-repeat:no-repeat;
@@ -252,7 +255,7 @@ input#submit{
   padding:10px 25px;
   color:#FFF;
   text-shadow:1px 1px 1px #949494;
-  margin-left:100px
+  margin-left:100px;
 }
 
 input#submit:hover{
