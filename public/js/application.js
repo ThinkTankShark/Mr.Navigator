@@ -132,6 +132,7 @@ var anotherUserLocationtextInputListener = function() {
 
     var jqXHR = $.ajax({
       url: '/users/find',
+      type: 'get',
       data: formData
     });
 

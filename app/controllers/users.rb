@@ -1,11 +1,11 @@
 # Check to make sure user logged in for any post method
-before "/users*" do
-  unless request.get?
-    unless current_user
-      redirect '/'
-    end
-  end
-end
+# before "/users*" do
+#   unless request.get?
+#     unless current_user
+#       redirect '/'
+#     end
+#   end
+# end
 
 #Return a page for registration
 get '/users/new' do
@@ -14,15 +14,16 @@ end
 
 #Create a new user
 post '/users' do
+
   @user = User.new(first_name: params[:first_name],
                   last_name: params[:last_name],
                   email: params[:email],
                   password: params[:password],
                   location: params[:user_location])
 
+
   if request.xhr?
     if @user.save
-      p @user
       session[:user_id] = @user.id
       redirect '/'
     else

@@ -49,11 +49,11 @@
             $("#user_location").val(userLocation);
 
             formData = $('#registration').serialize();
-            // console.log(formData);
+            console.log(formData);
             var jqXHR = $.ajax({
-                url: '/users',
-                type: 'POST',
-                data: formData
+              url: "/users",
+              type: "post",
+              data: formData
             });
             jqXHR.done(function() {
               window.location.href = "/";
