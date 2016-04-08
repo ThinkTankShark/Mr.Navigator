@@ -5,6 +5,16 @@
   padding: 15px;
 }
 
+#welcome-section {
+  padding: 2px 6px 2px 6px;
+  margin: 10px;
+}
+
+#welcome-user {
+  color: white;
+  margin: 10px;
+  display: inline;
+}
 /* Change registration link to look like button*/
 .register-section a {
   font: bold 11px Arial;
@@ -96,7 +106,7 @@ input.search {
   border:1px solid #DADADA;
   margin-top:10px;
   padding-left:30px;
-  width:310px;
+  width:320px;
   height:30px;
   font-size:14px;
   box-shadow:0 0 10px;
