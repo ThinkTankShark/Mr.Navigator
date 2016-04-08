@@ -14,10 +14,19 @@ end
 
 #Create a new user
 post '/users' do
+
+  if request.xhr?
+    p "-------------------------------------------------------"
+    p params[:user_location]
+
+
+  end
+
   @user = User.new(first_name: params[:first_name],
           last_name: params[:last_name],
           email: params[:email],
           password: params[:password])
+
   if @user.save
     redirect '/'
   else
@@ -31,7 +40,7 @@ get '/login' do
   erb :'users/login'
 end
 
-#Return homepage after successfull logn
+#Return homepage after successful login
 post '/login' do
   @user = User.find_by(email: params[:email])
 
