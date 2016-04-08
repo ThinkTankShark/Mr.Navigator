@@ -11,11 +11,64 @@
 
     <% if @errors %><p class="errors">can't be blank</p><% end %>
     <input type="password" name="password" id="password" placeholder="Password" autocomplete="off">
+    <input type="hidden" name="user_location" id="user_location">
 
     <input id="submit" type="submit" value="Register">
   </form>
 </div>
 
+<!-- Finding User Location When they sign up -->
+<script type="text/javascript">
+    window.onload = function() {
+        // If the browser supports the Geolocation API
+        if (typeof navigator.geolocation == "undefined") {
+          $("#error").text("Your browser doesn't support the Geolocation API");
+          return;
+        }
 
+        $("#submit").click(function(event) {
+          event.preventDefault();
+          var addressId = this.id.substring(0, this.id.indexOf("-"));
 
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({
+              "location": new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+            },
+            function(results, status) {
+
+            if (status == google.maps.GeocoderStatus.OK) {
+                $("#" + addressId).val(results[0].formatted_address);
+            //Finding the user location and send it to hidden input
+            var userLocation = results[0].formatted_address;
+            $("#user_location").val(userLocation);
+            
+            formData = $('#registration').serialize();
+
+            var jqXHR = $.ajax({
+                url: '/users',
+                type: 'POST',
+                data: formData
+            });
+            }
+              else {
+                $("#error").append("Unable to retrieve your address<br />");
+            }
+            });
+          },
+          function(positionError){
+            $("#error").append("Error: " + positionError.message + "<br />");
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10 * 1000 // 10 seconds
+          });
+        });
+
+        $("#calculate-route").submit(function(event) {
+          event.preventDefault();
+          calculateRoute($("#from").val(), $("#to").val());
+        });
+      }
+</script>
 
