@@ -1,11 +1,11 @@
 # Check to make sure user logged in for any post method
-# before "/users*" do
-#   unless request.get?
-#     unless current_user
-#       redirect '/'
-#     end
-#   end
-# end
+before "/users*" do
+  unless request.get?
+    unless current_user
+      redirect '/'
+    end
+  end
+end
 
 #Return a page for registration
 get '/users/new' do

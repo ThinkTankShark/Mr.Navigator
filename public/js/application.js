@@ -97,7 +97,6 @@ function calculateRoute(from, to) {
 
 //Generating Direction from user A to user B using their account GPS
 var anotherUserLocationtextInputListener = function() {
-
   $("#pos-from-link").click(function(event) {
     event.preventDefault();
     var addressId = this.id.substring(0, this.id.indexOf("-"));
@@ -146,4 +145,6 @@ var anotherUserLocationtextInputListener = function() {
     });
   });
 }
+
+
 

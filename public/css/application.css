@@ -107,7 +107,7 @@
 }
 
 /* Direction Tab */
-#from-link, #to-link {
+#from-link, #to-link, #pos-from-link {
   font-size: 12px;
   margin: 0 auto;
   clear: both;
