@@ -28,14 +28,13 @@
   border-left: 1px solid #CCCCCC;
 }
 
-/*  */
+/*  Body Section */
 #body-container {
   margin: -20px -10px 0px -10px;
   height: 100%;
   position: relative;
 }
 
-/*  */
 #body-left-container {
   display:table-row;
   float: left;
@@ -46,29 +45,76 @@
   line-height: 2.5em;
 }
 
-/*  */
 #body-right-container {
   float: right;
   width: 70%;
   height: 100%;
 }
 
-/*  */
+/* All Tabs */
+.tabs-menu {
+    height: 30px;
+    float: left;
+    clear: both;
+    padding: 0;
+}
 
+.tabs-menu li {
+    height: 30px;
+    line-height: 30px;
+    float: left;
+    margin-right: 5px;
+    background-color: #4cb343;
+    list-style-type: none;
+}
 
-/*  */
+.tabs-menu li.current {
+    position: relative;
+    background-color: #4cb343;
+    border-bottom: 3px solid #2e8926;
+    z-index: 5;
+}
+
+.tabs-menu li a {
+    padding: 10px;
+    text-transform: uppercase;
+    color: #2e7da3;
+    text-decoration: none; 
+}
+
+.tabs-menu .current a {
+    color: #fff;
+}
+
+.tab {
+    /*border: 1px solid #d4d4d1;*/
+    background-color: #3ea937;
+    float: left;
+    /*margin-bottom: 20px;*/
+    width: auto;
+}
+
+.tab-content {
+    width: 300px;
+    /*padding: 20px;*/
+    display: none;
+}
+
+#tab-1 {
+ display: block;   
+}
+
+/* Direction Tab */
 #from-link, #to-link {
   font-size: 12px;
   margin: 0 auto;
   clear: both;
 }
 
-/*  */
 #calculate-route {
   width: 100%;
 }
 
-/*  */
 .button-0 {
     position: relative;
     padding: 10px 10px;
@@ -211,7 +257,3 @@ input#submit:hover{
   background-color:#80A24A
 }
 
-/*  */
-
-/*  */
-/*  */

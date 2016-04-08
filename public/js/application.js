@@ -1,18 +1,33 @@
-window.onload = function() {
-  $(document).ready(function() {
-    // If the browser supports the Geolocation API
-    if (typeof navigator.geolocation == "undefined") {
-      $("#error").text("Your browser doesn't support the Geolocation API");
-      return;
-    }
-    //finding user location when pressing the submit button
-    findUserLocation();
-    
-    //
-    anotherUserLocationtextInputListener();
+$(document).ready(function() {
+  // If the browser supports the Geolocation API
+  if (typeof navigator.geolocation == "undefined") {
+    $("#error").text("Your browser doesn't support the Geolocation API");
+    return;
+  }
+
+  //Tabs listener
+  tabsListener();
+
+  //finding user location when pressing the submit button
+  findUserLocation();
+  
+  //Generating Direction from user A to user B using their account GPS
+  anotherUserLocationtextInputListener();
+});
+
+//Tabs listener
+var tabsListener = function() {
+  $(".tabs-menu a").click(function(event) {
+      event.preventDefault();
+      $(this).parent().addClass("current");
+      $(this).parent().siblings().removeClass("current");
+      var tab = $(this).attr("href");
+      $(".tab-content").not(tab).css("display", "none");
+      $(tab).fadeIn();
   });
 }
 
+//finding user location when pressing the submit button
 var findUserLocation = function() {
   $("#from-link, #to-link").click(function(event) {
     event.preventDefault();
@@ -24,7 +39,6 @@ var findUserLocation = function() {
         "location": new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
       },
       function(results, status) {
-        debugger;
         if (status == google.maps.GeocoderStatus.OK)
           $("#" + addressId).val(results[0].formatted_address);
         else
