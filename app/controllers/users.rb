@@ -14,24 +14,21 @@ end
 
 #Create a new user
 post '/users' do
-
-  if request.xhr?
-    p "-------------------------------------------------------"
-    p params[:user_location]
-
-
-  end
-
   @user = User.new(first_name: params[:first_name],
-          last_name: params[:last_name],
-          email: params[:email],
-          password: params[:password])
-
-  if @user.save
-    redirect '/'
+                  last_name: params[:last_name],
+                  email: params[:email],
+                  password: params[:password],
+                  location: params[:user_location])
+  
+  if request.xhr?
+    if @user.save
+      redirect '/'
+    else
+      @errors = @user.errors.messages
+      erb :'users/signup'
+    end
   else
-    @errors = @user.errors.messages
-    erb :'users/signup'
+    redirect '/'
   end
 end
 

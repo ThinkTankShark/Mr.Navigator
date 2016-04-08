@@ -1,102 +1,88 @@
-function calculateRoute(from, to) {
-        // Center initialized to Naples, Italy
-        var myOptions = {
-          zoom: 10,
-          center: new google.maps.LatLng(37.7749, 122.4194),
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        // Draw the map
-        var mapObject = new google.maps.Map(document.getElementById("body-right-container"), myOptions);
+window.onload = function() {
+  $(document).ready(function() {
+    // If the browser supports the Geolocation API
+    if (typeof navigator.geolocation == "undefined") {
+      $("#error").text("Your browser doesn't support the Geolocation API");
+      return;
+    }
+    //finding user location when pressing the submit button
+    findUserLocation();
+    
+    //
+    anotherUserLocationtextInputListener();
+  });
+}
 
-        var directionsService = new google.maps.DirectionsService();
-        var directionsRequest = {
-          origin: from,
-          destination: to,
-          travelMode: google.maps.DirectionsTravelMode.DRIVING,
-          unitSystem: google.maps.UnitSystem.METRIC
-        };
-        directionsService.route(
-          directionsRequest,
-          function(response, status)
-          {
-            if (status == google.maps.DirectionsStatus.OK)
-            {
-              new google.maps.DirectionsRenderer({
-                map: mapObject,
-                directions: response
-              });
-            }
-            else
-              $("#error").append("Unable to retrieve your route<br />");
-          }
-        );
-      }
+var findUserLocation = function() {
+  $("#from-link, #to-link").click(function(event) {
+    event.preventDefault();
+    var addressId = this.id.substring(0, this.id.indexOf("-"));
 
-      $(document).ready(function() {
-        // If the browser supports the Geolocation API
-        if (typeof navigator.geolocation == "undefined") {
-          $("#error").text("Your browser doesn't support the Geolocation API");
-          return;
-        }
-
-        $("#from-link, #to-link").click(function(event) {
-          event.preventDefault();
-          var addressId = this.id.substring(0, this.id.indexOf("-"));
-
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({
-              "location": new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-            },
-            function(results, status) {
-              debugger;
-              if (status == google.maps.GeocoderStatus.OK)
-                $("#" + addressId).val(results[0].formatted_address);
-              else
-                $("#error").append("Unable to retrieve your address<br />");
-            });
-          },
-          function(positionError){
-            $("#error").append("Error: " + positionError.message + "<br />");
-          },
-          {
-            enableHighAccuracy: true,
-            timeout: 10 * 1000 // 10 seconds
-          });
-        });
-
-        $("#calculate-route").submit(function(event) {
-          event.preventDefault();
-          calculateRoute($("#from").val(), $("#to").val());
-        });
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({
+        "location": new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+      },
+      function(results, status) {
+        debugger;
+        if (status == google.maps.GeocoderStatus.OK)
+          $("#" + addressId).val(results[0].formatted_address);
+        else
+          $("#error").append("Unable to retrieve your address<br />");
       });
+    },
+    function(positionError){
+      $("#error").append("Error: " + positionError.message + "<br />");
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10 * 1000 // 10 seconds
+    });
+  });
 
-// if (navigator.geolocation) {
-//   console.log('Geolocation is supported!');
-//   window.onload = function() {
-//   var startPos;
-//   var geoOptions = {
-//     enableHighAccuracy: true
-//   }
+  $("#calculate-route").submit(function(event) {
+    event.preventDefault();
+    calculateRoute($("#from").val(), $("#to").val());
+  });
+}
 
-//   var geoSuccess = function(position) {
-//     startPos = position;
-//     document.getElementById('startLat').innerHTML = startPos.coords.latitude;
-//     document.getElementById('startLon').innerHTML = startPos.coords.longitude;
-//   };
-//   var geoError = function(error) {
-//     console.log('Error occurred. Error code: ' + error.code);
-//     // error.code can be:
-//     //   0: unknown error
-//     //   1: permission denied
-//     //   2: position unavailable (error response from location provider)
-//     //   3: timed out
-//   };
+//Generating Direction from A to B
+function calculateRoute(from, to) {
+  // Center initialized to San Francisco, CA
+  var myOptions = {
+    zoom: 10,
+    center: new google.maps.LatLng(37.7749, 122.4194),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  // Draw the map
+  var mapObject = new google.maps.Map(document.getElementById("body-right-container"), myOptions);
 
-//   var pos = navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+  var directionsService = new google.maps.DirectionsService();
+  var directionsRequest = {
+    origin: from,
+    destination: to,
+    travelMode: google.maps.DirectionsTravelMode.DRIVING,
+    unitSystem: google.maps.UnitSystem.METRIC
+  };
+  directionsService.route(
+    directionsRequest,
+    function(response, status)
+    {
+      if (status == google.maps.DirectionsStatus.OK)
+      {
+        new google.maps.DirectionsRenderer({
+          map: mapObject,
+          directions: response
+        });
+      }
+      else
+        $("#error").append("Unable to retrieve your route<br />");
+    }
+  );
+}
 
-//   };
-// }
-// else {
-//   alert('Geolocation is not supported for this Browser/OS version yet.');
-// }
+//Generating Direction from user A to user B using their account GPS
+var anotherUserLocationtextInputListener = function() {
+
+}
+

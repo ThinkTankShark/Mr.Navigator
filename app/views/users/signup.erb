@@ -11,7 +11,7 @@
 
     <% if @errors %><p class="errors">can't be blank</p><% end %>
     <input type="password" name="password" id="password" placeholder="Password" autocomplete="off">
-    <input type="text" name="user_location" id="user_location">
+    <input type="hidden" name="user_location" id="user_location">
 
     <input id="submit" type="submit" value="Register">
   </form>
@@ -37,17 +37,18 @@
             },
             function(results, status) {
 
-              if (status == google.maps.GeocoderStatus.OK) {
+            if (status == google.maps.GeocoderStatus.OK) {
                 $("#" + addressId).val(results[0].formatted_address);
-
+            //Finding the user location and send it to hidden input
             var userLocation = results[0].formatted_address;
             $("#user_location").val(userLocation);
-            debugger;
+            
+            formData = $('#registration').serialize();
 
             var jqXHR = $.ajax({
                 url: '/users',
                 type: 'POST',
-                data: userLocation
+                data: formData
             });
             }
               else {

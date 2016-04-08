@@ -6,7 +6,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :last_name, :null => false
       t.string :email, :null => false
       t.string :hashed_password, :null => false
-
+      t.string :location
+      
       t.references :location, index: true
 
       t.timestamps
