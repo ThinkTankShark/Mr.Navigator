@@ -19,9 +19,11 @@ post '/users' do
                   email: params[:email],
                   password: params[:password],
                   location: params[:user_location])
-  
+
   if request.xhr?
     if @user.save
+      p @user
+      session[:user_id] = @user.id
       redirect '/'
     else
       @errors = @user.errors.messages

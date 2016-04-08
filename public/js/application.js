@@ -10,7 +10,7 @@ $(document).ready(function() {
 
   //finding user location when pressing the submit button
   findUserLocation();
-  
+
   //Generating Direction from user A to user B using their account GPS
   anotherUserLocationtextInputListener();
 });

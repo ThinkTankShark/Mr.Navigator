@@ -42,17 +42,24 @@
             //Finding the user location and send it to hidden input
             var userLocation = results[0].formatted_address;
             $("#user_location").val(userLocation);
-            
-            formData = $('#registration').serialize();
 
+            formData = $('#registration').serialize();
+            console.log(formData);
             var jqXHR = $.ajax({
                 url: '/users',
                 type: 'POST',
                 data: formData
             });
-            }
-              else {
-                $("#error").append("Unable to retrieve your address<br />");
+
+
+
+            jqXHR.done(function() {
+              window.location.href = "/";
+            });
+          }
+
+          else {
+            $("#error").append("Unable to retrieve your address<br />");
             }
             });
           },
