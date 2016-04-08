@@ -1,11 +1,11 @@
 # Check to make sure user logged in for any post method
-# before "/users*" do
-#   unless request.get?
-#     unless current_user
-#       redirect '/'
-#     end
-#   end
-# end
+before "/users*" do
+  unless request.get?
+    unless current_user
+      redirect '/'
+    end
+  end
+end
 
 #Return a page for registration
 get '/users/new' do
@@ -19,9 +19,11 @@ post '/users' do
                   email: params[:email],
                   password: params[:password],
                   location: params[:user_location])
-  
+
   if request.xhr?
     if @user.save
+      p @user
+      session[:user_id] = @user.id
       redirect '/'
     else
       @errors = @user.errors.messages
@@ -53,4 +55,19 @@ end
 get '/logout' do
   session.delete(:user_id)
   redirect '/'
+end
+
+#Return another user location
+get '/users/find' do
+  if request.xhr?
+    @user = User.find_by(email: params[:to])
+    puts ""
+    puts "------------------------------"
+    puts @user.location
+    puts "------------------------------"
+    puts ""
+    return @user.location.to_json
+  else
+    p "error"
+  end
 end

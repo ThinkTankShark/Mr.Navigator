@@ -12,7 +12,12 @@
     <% if @errors %><p class="errors">can't be blank</p><% end %>
     <input type="password" name="password" id="password" placeholder="Password" autocomplete="off">
     <input type="hidden" name="user_location" id="user_location">
-
+    <p style="float: none; text-align: center; clear: both; margin: 10px 0; margin-right: 630px;">
+  <input style="float:none; vertical-align: middle;" type="checkbox" id="agree" />
+  <label style="display:inline; float:none" for="agree">
+    I agree with the <a href="/pages/terms-and-conditions">terms and conditions</a>.
+  </label>
+</p>
     <input id="submit" type="submit" value="Register">
   </form>
 </div>
@@ -42,17 +47,21 @@
             //Finding the user location and send it to hidden input
             var userLocation = results[0].formatted_address;
             $("#user_location").val(userLocation);
-            
-            formData = $('#registration').serialize();
 
+            formData = $('#registration').serialize();
+            // console.log(formData);
             var jqXHR = $.ajax({
                 url: '/users',
                 type: 'POST',
                 data: formData
             });
-            }
-              else {
-                $("#error").append("Unable to retrieve your address<br />");
+            jqXHR.done(function() {
+              window.location.href = "/";
+            });
+          }
+
+          else {
+            $("#error").append("Unable to retrieve your address<br />");
             }
             });
           },
@@ -71,4 +80,6 @@
         });
       }
 </script>
+
+
 
